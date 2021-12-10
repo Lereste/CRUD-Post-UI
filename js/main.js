@@ -1,7 +1,5 @@
-import axiosClient from './api/axiosClient';
+// import axiosClient from './api/axiosClient';
 import postApi from './api/postApi';
-
-console.log('Hello from main.js');
 
 async function main() {
   //   const response = await axiosClient.get('/posts');
@@ -11,13 +9,15 @@ async function main() {
       _limit: 5
     };
 
-    const response = await postApi.getAll(queryParams);
-    console.log(response);
-  } catch (error) {}
+    const data = await postApi.getAll(queryParams);
+    console.log('main.js data', data); // Object
+  } catch (error) {
+    console.log('Get all failed - ' + error);
+  }
 
   await postApi.updateFormData({
     id: 'sktwi1cgkkuif36dj',
-    title: 'Dicta molestiae aut 444'
+    title: 'Dicta molestiae aut'
   });
 }
 
