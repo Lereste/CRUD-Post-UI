@@ -6,7 +6,7 @@ async function main() {
   try {
     const queryParams = {
       _page: 1,
-      _limit: 5
+      _limit: 6
     };
 
     const data = await postApi.getAll(queryParams);
