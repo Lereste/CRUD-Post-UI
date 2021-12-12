@@ -2,6 +2,7 @@ import postApi from './api/postApi';
 import { getUlPagination, setTextContent, truncateText } from './utils';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import debounce from 'lodash.debounce';
 
 // To use fromNow function
 dayjs.extend(relativeTime);
@@ -17,31 +18,33 @@ function createPostElement(post) {
   if (!liElement) return;
 
   // Update title, description, author and thumbnail
-    // const titleElement = liElement.querySelector('[data-id="title"]');
-    // if (titleElement) titleElement.textContent = post.title
+  // const titleElement = liElement.querySelector('[data-id="title"]');
+  // if (titleElement) titleElement.textContent = post.title
 
-    // const descriptionElement = liElement.querySelector('[data-id="description"]');
-    // if (descriptionElement) descriptionElement.textContent = post.description
+  // const descriptionElement = liElement.querySelector('[data-id="description"]');
+  // if (descriptionElement) descriptionElement.textContent = post.description
 
-    // const authorElement = liElement.querySelector('[data-id="author"]');
-    // if (authorElement) authorElement.textContent = post.author
+  // const authorElement = liElement.querySelector('[data-id="author"]');
+  // if (authorElement) authorElement.textContent = post.author
 
   setTextContent(liElement, '[data-id="title"]', post.title);
   setTextContent(liElement, '[data-id="description"]', truncateText(post.description, 120));
   setTextContent(liElement, '[data-id="author"]', post.author);
 
   // Calculate timespan
-    // setTextContent(liElement, '[data-id="timeSpan"]', ` - ${dayjs(post.updatedAt).fromNow()}`);
-  setTextContent(liElement, '[data-id="timeSpan"]', ` - ${dayjs(post.updatedAt).format('DD/MM/YY - h:mm A')}`);
+  // setTextContent(liElement, '[data-id="timeSpan"]', ` - ${dayjs(post.updatedAt).fromNow()}`);
+  setTextContent(
+    liElement, '[data-id="timeSpan"]', ` - ${dayjs(post.updatedAt).format('DD/MM/YY - h:mm A')}`
+  );
 
   const thumbnailElement = liElement.querySelector('[data-id="thumbnail"]');
   if (thumbnailElement) {
     thumbnailElement.src = post.imageUrl;
 
     thumbnailElement.addEventListener('error', () => {
-      console.log('Load image failed --> use default placeholder')
-      thumbnailElement.src = 'https://via.placeholder.com/1368x400?text=thumbnail'
-    })
+      console.log('Load image failed --> use default placeholder');
+      thumbnailElement.src = 'https://via.placeholder.com/1368x400?text=thumbnail';
+    });
   }
 
   // Attach events
@@ -49,7 +52,7 @@ function createPostElement(post) {
 }
 
 function renderPostList(postList) {
-  if (!Array.isArray(postList) || postList.length === 0) return;
+  if (!Array.isArray(postList)) return;
 
   const ulElement = document.getElementById('postList');
   if (!ulElement) return;
@@ -60,7 +63,7 @@ function renderPostList(postList) {
   postList.forEach((post) => {
     const liElement = createPostElement(post);
     ulElement.appendChild(liElement);
-  })
+  });
 }
 
 function renderPagination(pagination) {
@@ -69,19 +72,18 @@ function renderPagination(pagination) {
 
   // Calc totalPages
   const { _page, _limit, _totalRows } = pagination;
-  const totalPages = Math.ceil(_totalRows / _limit); 
+  const totalPages = Math.ceil(_totalRows / _limit);
 
   // Save page and totalPages to ulPagination
   ulPagination.dataset.page = _page;
   ulPagination.dataset.totalPages = totalPages;
 
   // Check if enable/disable prev/next links
-  if (_page <= 1) ulPagination.firstElementChild?.classList.add('disabled')
-  else ulPagination.firstElementChild?.classList.remove('disabled')
+  if (_page <= 1) ulPagination.firstElementChild?.classList.add('disabled');
+  else ulPagination.firstElementChild?.classList.remove('disabled');
 
-  if (_page >= totalPages) ulPagination.lastElementChild?.classList.add('disabled')
-  else ulPagination.lastElementChild?.classList.remove('disabled')
-
+  if (_page >= totalPages) ulPagination.lastElementChild?.classList.add('disabled');
+  else ulPagination.lastElementChild?.classList.remove('disabled');
 }
 
 async function handleFilterChange(filterName, filterValue) {
@@ -89,6 +91,10 @@ async function handleFilterChange(filterName, filterValue) {
     // Update queryParams
     const url = new URL(window.location);
     url.searchParams.set(filterName, filterValue);
+
+    // Reset page to dafault when filterName = title_like
+    if (filterName === 'title_like') url.searchParams.set('_page', 1);
+
     history.pushState({}, '', url);
 
     // Fetch API and re-render post list
@@ -132,15 +138,15 @@ function initPagination() {
   if (!ulPagination) return;
 
   // Add click event for prev link
-  const prevLink = ulPagination.firstElementChild?.firstElementChild
+  const prevLink = ulPagination.firstElementChild?.firstElementChild;
   if (prevLink) {
-    prevLink.addEventListener('click', handlePrevClick)
+    prevLink.addEventListener('click', handlePrevClick);
   }
 
   // Add click event for next link
-  const nextLink = ulPagination.lastElementChild?.lastElementChild
+  const nextLink = ulPagination.lastElementChild?.lastElementChild;
   if (nextLink) {
-    nextLink.addEventListener('click', handleNextClick)
+    nextLink.addEventListener('click', handleNextClick);
   }
 }
 
@@ -153,10 +159,27 @@ function initURL() {
   history.pushState({}, '', url);
 }
 
+function initSearch() {
+  const searchInput = document.getElementById('searchInput');
+  if (!searchInput) return;
+
+  // Set default values from query params
+  const queryParams = new URLSearchParams(window.location.search);
+  if (queryParams.get('title_like')) {
+    searchInput.value = queryParams.get('title_like');
+  }
+
+  const debounceSearch = debounce((event) => handleFilterChange('title_like', event.target.value), 500);
+  // Trigger search
+  searchInput.addEventListener('input', debounceSearch);
+}
+
 ;(async () => {
   try {
     // Attach click event for links
     initPagination();
+
+    initSearch();
 
     // Set default pagination (_page, _limit) on URL
     initURL();
