@@ -21,6 +21,37 @@ section.hero {
 
 
 .post-detail .post-image {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 99%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.post-detail .post-image:hover {
+  cursor: pointer;
   width: 100%;
   margin-bottom: 1rem;
+}
+
+#lightbox .text-center {
+  display: flex;
+  margin: 0 30%;
+}
+
+@media only screen and (max-width: 568px) {
+  #lightbox .text-center {
+    display: flex;
+    margin: 0 15%;
+  }
+}
+
+#lightbox .text-center p {
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  margin: 0 auto;
 }
