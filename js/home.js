@@ -7,7 +7,7 @@ async function handleFilterChange(filterName, filterValue) {
     const url = new URL(window.location);
     url.searchParams.set(filterName, filterValue);
 
-    // Reset page to dafault when filterName = title_like
+    // Reset page to default when filterName = title_like
     if (filterName === 'title_like') url.searchParams.set('_page', 1);
 
     history.pushState({}, '', url);
