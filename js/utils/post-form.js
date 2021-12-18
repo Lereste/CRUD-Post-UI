@@ -65,7 +65,7 @@ function getPostSchema() {
     .required('Please enter author :( ')
     .test('at-least-two-words', 'Please enter at least two words of 3 characters :( ', 
     (value) => value.split(' ').filter((x) => !!x && x.length >= 3).length >= 2),
-    description: yup.string(),
+    // description: yup.string().required('Description can not be blank :3'),
   });
 }
 
@@ -136,16 +136,19 @@ export function initPostForm({ formId, defaultValues, onSubmit }) {
 
   setFormValue(form, defaultValues);
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     // Get form values
     const formValues = getFormValues(form);
-      console.log(formValues);
+    formValues.id = defaultValues.id;
 
     // Validation
     // If valid trigger submit callback
     // Orderwise, show validation errors
-    if (!validatePostForm(form, formValues)) return;
+    const isValid = await validatePostForm(form, formValues);
+    if (!isValid) return;
+
+    onSubmit?.(formValues);
   })
 }
