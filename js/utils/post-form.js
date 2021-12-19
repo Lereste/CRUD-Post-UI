@@ -150,7 +150,6 @@ export function initPostForm({ formId, defaultValues, onSubmit }) {
   const form = document.getElementById(formId);
   if (!form) return;
 
-  // Prevent other submission
   let submitting = false;
 
   setFormValue(form, defaultValues);
@@ -158,6 +157,7 @@ export function initPostForm({ formId, defaultValues, onSubmit }) {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    // Prevent other submission
     if (submitting) return;
 
     showLoading(form);
