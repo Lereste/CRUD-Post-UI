@@ -1,6 +1,6 @@
 
 section.hero {
-  height: 300px;
+  height: 400px;
   background: #eee;
   background-size: cover;
   background-position: center;
@@ -24,15 +24,13 @@ section.hero {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  width: 99%;
+  width: 100%;
   margin-bottom: 1rem;
   object-fit: cover;
 }
 
 .post-detail .post-image:hover {
   cursor: pointer;
-  width: 100%;
-  margin-bottom: 1rem;
 }
 
 #lightbox .text-center {
@@ -54,4 +52,8 @@ section.hero {
   justify-content: center;
   padding: 0 4px;
   margin: 0 auto;
+}
+
+.ratio-16x9 {
+  --bs-aspect-ratio: 43.21%;
 }
