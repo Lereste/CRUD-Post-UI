@@ -32,13 +32,11 @@ function registerPostDeleteEvent() {
         await postApi.remove(post.id)
         await handleFilterChange()
 
-        // toast.success('Remove post successfully');
+        toast.success('Remove post successfully');
       }
     } catch (error) {
       toast.error(error.message);
     }
-
-    // console.log('click', event.detail)
   });
 }
 
