@@ -37,7 +37,9 @@ export function handleDeletePostModal({ modalId, deleteSelector, closeSelector }
         await handleFilterChange();
         toast.success('Remove post successfully');
 
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        });
       });
 
       const cancleButton = document.querySelector(closeSelector);
