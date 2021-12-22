@@ -39,7 +39,7 @@ export function handleDeletePostModal({ modalId, deleteSelector, closeSelector }
 
         setTimeout(() => {
           window.location.reload();
-        });
+        }, 1000);
       });
 
       const cancleButton = document.querySelector(closeSelector);
