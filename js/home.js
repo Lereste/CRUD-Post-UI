@@ -1,7 +1,7 @@
 import postApi from './api/postApi';
-import { initPagination, initSearch, renderPostList, renderPagination, toast } from './utils';
+import { initPagination, initSearch, renderPostList, renderPagination, toast, handleDeletePostModal } from './utils';
 
-async function handleFilterChange(filterName, filterValue) {
+export async function handleFilterChange(filterName, filterValue) {
   try {
     // Update queryParams
     const url = new URL(window.location);
@@ -22,23 +22,23 @@ async function handleFilterChange(filterName, filterValue) {
   }
 }
 
-function registerPostDeleteEvent() {
-  document.addEventListener('post-delete', async (event) => {
-    try {
-      const post = event.detail;
-      const message = `Are you sure to remove post "${post.title}"?`;
+// function registerPostDeleteEvent() {
+//   document.addEventListener('post-delete', async (event) => {
+//     try {
+//       const post = event.detail;
+//       const message = `Are you sure to remove post "${post.title}"?`;
+//       if (window.confirm(message)) {
+//         await postApi.remove(post.id)
+//         await handleFilterChange()
 
-      if (window.confirm(message)) {
-        await postApi.remove(post.id)
-        await handleFilterChange()
-
-        toast.success('Remove post successfully');
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  });
-}
+//         toast.success('Remove post successfully');
+//       }
+//     } catch (error) {
+//       toast.error(error.message);
+//     }
+//     console.log('click', event.detail)
+//   });
+// }
 
 // MAIN
 ;(async () => {
@@ -66,7 +66,14 @@ function registerPostDeleteEvent() {
       onChange: (value) => handleFilterChange('title_like', value),
     });
 
-    registerPostDeleteEvent();
+    // registerPostDeleteEvent();
+
+    handleDeletePostModal({
+      modalId: 'deletePostModal',
+      deleteSelector: 'button[data-id="btnDelete"]',
+      closeSelector: 'button[data-id="btnClose"]',
+    });
+
     handleFilterChange();
   } catch (error) {
     console.log('Get all failed - ' + error);

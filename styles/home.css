@@ -105,3 +105,16 @@
   padding: 0;
 }
 
+/* Modal delete post */
+#deletePostModal .delete-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#deletePostModal .text-center {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25%;
+}

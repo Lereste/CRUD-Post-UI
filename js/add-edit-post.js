@@ -48,7 +48,7 @@ async function handlePostFormSubmit(formValues) {
     // Redirect to detail page
     setTimeout(() => {
       window.location.assign(`/post-detail.html?id=${savedPost.id}`);
-    }, 2000)
+    }, 1000)
 
   } catch (error) {
     console.log('Failed to save post', error);
