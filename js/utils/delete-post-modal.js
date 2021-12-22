@@ -37,6 +37,7 @@ export function handleDeletePostModal({ modalId, deleteSelector, closeSelector }
         await handleFilterChange();
         toast.success('Remove post successfully');
 
+        modal.hide();
         setTimeout(() => {
           window.location.reload();
         }, 1000);
