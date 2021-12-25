@@ -4,6 +4,8 @@ View live demo: [https://crud-with-api.vercel.app/](https://crud-with-api.vercel
 
 Api: [https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/](https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/)
 
+Thanks [Paul Nguyen](https://github.com/paulnguyen-mn) for teaching me to complete this project.
+
 This simple website has 3 pages:
 - Home page: `/`
 - Add/Edit a post page: `/add-edit-post.html`
