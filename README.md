@@ -1,6 +1,7 @@
 # CRUD Post UI | Lereste
 
 View live demo: [https://crud-with-api.vercel.app/](https://crud-with-api.vercel.app/)
+Api: [https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/](https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/)
 
 This simple website has 3 pages:
 - Home page: `/`
@@ -15,14 +16,14 @@ This simple website has 3 pages:
 
 ```
 Let break the following url into smaller parts:
-URL: https://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1
+URL: https://js-post-api.herokuapp.com/api/posts?_limit=6&_page=1
 
 - origin: "https://js-post-api.herokuapp.com"
 - pathname: "/api/posts"
-- search: "?_page=1&_limit=6&title_like="
+- search: "?_limit=6&_page=1&title_like="
 - When you parse search, you'll get query params object with two keys:
-  - `_page`: 1
   - `_limit`: 6
+  - `_page`: 1
   - `title_like=`: name
   
   name: mean your title of post you want to search
