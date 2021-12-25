@@ -50,88 +50,51 @@ URL: https://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1
 - [Lodash.debounce](https://www.npmjs.com/package/lodash.debounce): Used for search post with "title_like="
 - [Toastify](https://github.com/apvarun/toastify-js/blob/master/README.md): Used for show toast message.
 
-## :tada: Post API Guide
+## :house: Home page
 
-- API_URL: `https://js-post-api.herokuapp.com/api`
+### Render list of posts
 
-### Get a list of posts
+- Research `Bootstrap Carousel` and add to home page.
+  - Include 3 slides
+  - Each slide has title and description.
+  - Auto move the next slide.
+- Fetch list of posts and render to UI.
+- Search post with title.
+- Pagination to be able to to fetch posts by page and limit the number of posts per page.
 
-```sh
-GET /posts
-```
+### Handle event on each post item
 
-
-Supported query params:
-- `_limit`: Limit the number of items per page.
-- `_page`: Current page.
-- `_sort`: Indicate which field should be sorted on
-- `_order`: Indicate sort direction.
-
-*Eg: Get page 2 posts with 6 posts/page*
-
-```sh
-GET /posts/:postId?_limit=10&_page=2
-```
-
-*Eg: Sort post to get the latest posts first.*
-
-```sh
-GET /posts/:postId?_sort=updatedAt&_order=desc
-```
+- `Click`: Go to detail page and show detail of clicked post.
+- `Edit button click`: Go to edit page and populate detail of clicked post to form.
+- `Remove button click`: Show confirmation to remove? If yes, remove it. Otherwise, do nothing :P
 
 
-### To get a post detail
+## :heavy_plus_sign: Add/Edit post page
 
-```sh
-GET /posts/:postId
-```
+- Add form validation
+  - Require `title` field
+  - Require `author` field
 
-### To add a new post
+**ADD MODE** (if `postId` query param doesn't exist)
 
-```sh
-POST /posts
-```
+- Handle form submit
+  - Show error if validation is failed. Stop form submit.
+  - Add new post with submitted values: `title`, `author`, `description` and `imageUrl`
+  - If add successfully, show an alert with message `Save post successfully` and redirect to Edit page of the new post.
+  - If failed, show an alert with error message.
 
-Sample payload:
+**EDIT MODE** (if `postId` query param exists)
 
-```js
-{
-  title: 'Some cool title',
-  author: 'Po Nguyen',
-  description: 'Awesome post',
-  imageUrl: 'https://picsum.photos/id/580/1368/400',
-}
-```
+- Get post detail and set initial value for form.
+- Handle form submit
+  - Do nothing if user doesn't change anything.
+  - Show error if validation is failed. Stop form submit.
+  - Update existing post with field that has changes. Don't include unchanged properties inside payload.
+  - If update successfully, show an alert with message `Save post successfully`.
+  - If failed, show an alert with error message.
 
-### To update a post
+## :eyes: Post detail page
 
-```sh
-PATCH /posts/:postId
-```
-
-Please ONLY include changes to your payload:
-
-```js
-{
-  id: 'your-post-id',
-  title: 'My new title',
-}
-```
-
-### To remove a post
-
-```sh
-DELETE /posts/:postId
-```
-
-## :heart_eyes: General requirement
-
-- Learn to use Post API: `https://js-post-api.herokuapp.com`
-- Implement 3 pages with details described below.
-- Learn to use Github.
-- Deploy your page to Github Page.
-- Use `axios` to work with API.
-- (Optional) Use anime.js to add animation.
-
-
-Happy Coding ^^~
+- Get post detail.
+- Update corresponding DOM: `title`, `description`, `author`, `createdAt` and `imageUrl`.
+- Integrate with `Lightbox` to view image when click on image.
