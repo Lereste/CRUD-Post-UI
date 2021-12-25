@@ -66,7 +66,7 @@ URL: https://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1
 
 - `Click`: Go to detail page and show detail of clicked post.
 - `Edit button click`: Go to edit page and populate detail of clicked post to form.
-- `Remove button click`: Show confirmation to remove? If yes, remove it. Otherwise, do nothing :P
+- `Remove button click`: Show a modal confirmation to remove? If yes, remove it and show a toast with message `Remove post successfully`. Otherwise, do nothing :P
 
 
 ## :heavy_plus_sign: Add/Edit post page
@@ -80,8 +80,8 @@ URL: https://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1
 - Handle form submit
   - Show error if validation is failed. Stop form submit.
   - Add new post with submitted values: `title`, `author`, `description` and `imageUrl`
-  - If add successfully, show an alert with message `Save post successfully` and redirect to Edit page of the new post.
-  - If failed, show an alert with error message.
+  - If add successfully, show a toast with message `Save post successfully` and redirect to Edit page of the new post.
+  - If failed, show a toast with error message.
 
 **EDIT MODE** (if `postId` query param exists)
 
@@ -90,8 +90,8 @@ URL: https://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1
   - Do nothing if user doesn't change anything.
   - Show error if validation is failed. Stop form submit.
   - Update existing post with field that has changes. Don't include unchanged properties inside payload.
-  - If update successfully, show an alert with message `Save post successfully`.
-  - If failed, show an alert with error message.
+  - If update successfully, show a toast with message `Save post successfully`.
+  - If failed, show a toast with error message.
 
 ## :eyes: Post detail page
 
