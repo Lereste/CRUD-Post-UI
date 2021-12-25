@@ -46,8 +46,8 @@ export async function handleFilterChange(filterName, filterValue) {
     const url = new URL(window.location);
 
     // Update search params if needed
-    if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1);
     if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 6);
+    if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1);
 
     history.pushState({}, '', url);
     const queryParams = url.searchParams;
