@@ -90,7 +90,9 @@ function handleDeletePostModal() {
     const url = new URL(window.location);
 
     // Update search params if needed
-    if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 6);
+    if (!url.searchParams.get('_sort')) url.searchParams.set('_sort', 'createdAt');
+    if (!url.searchParams.get('_order')) url.searchParams.set('_order', 'desc');
+    if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 9);
     if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1);
 
     history.pushState({}, '', url);
