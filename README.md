@@ -2,7 +2,9 @@
 
 View live demo: [https://crud-with-api.vercel.app/](https://crud-with-api.vercel.app/)
 
-Api: [https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/](https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/)
+- API_URL: `https://js-post-api.herokuapp.com/api`
+
+- Link: [https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/](https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/)
 
 Thanks [Paul Nguyen](https://github.com/paulnguyen-mn) for teaching me to complete this project.
 
