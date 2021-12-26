@@ -19,18 +19,17 @@ This simple website has 3 pages:
 
 ```
 Let break the following url into smaller parts:
-URL: https://js-post-api.herokuapp.com/api/posts?_limit=6&_page=1
+URL: https://js-post-api.herokuapp.com/api/posts?_sort=createdAt&_order=desc&_limit=9&_page=1
 
 - origin: "https://js-post-api.herokuapp.com"
 - pathname: "/api/posts"
-- search: "?_limit=6&_page=1&title_like="
-- When you parse search, you'll get query params object with two keys:
-  - `_limit`: 6
+- sort: "?_sort=createdAt&_order=desc"
+- search: "&_limit=9&_page=1"
+- When you parse search, you'll get query params object with four keys:
+  - `_sort`: 'createdAt'
+  - `_order`: 'desc'
+  - `_limit`: 9
   - `_page`: 1
-  - `title_like=`: name
-  
-  name: mean your title of post you want to search
-  
 ```
 
 > How to know whether add or edit mode when visit `/add-edit-post.html` page?
@@ -62,8 +61,9 @@ URL: https://js-post-api.herokuapp.com/api/posts?_limit=6&_page=1
   - Include 3 slides
   - Each slide has title and description.
   - Auto move the next slide.
-- Fetch list of posts and render to UI.
 - Search post with title.
+- Fetch list of posts and render to UI.
+- Sort list of post to show the latest post first.
 - Pagination to be able to to fetch posts by page and limit the number of posts per page.
 
 ### Handle event on each post item
