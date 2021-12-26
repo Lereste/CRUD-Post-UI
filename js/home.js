@@ -1,5 +1,5 @@
 import postApi from './api/postApi';
-import { initPagination, initSearch, renderPostList, renderPagination, toast, handleDeletePostModal } from './utils';
+import { initPagination, initSearch, renderPostList, renderPagination, toast } from './utils';
 
 export async function handleFilterChange(filterName, filterValue) {
   try {
@@ -22,6 +22,7 @@ export async function handleFilterChange(filterName, filterValue) {
   }
 }
 
+// S1: Lazy work :D
 // function registerPostDeleteEvent() {
 //   document.addEventListener('post-delete', async (event) => {
 //     try {
@@ -39,6 +40,49 @@ export async function handleFilterChange(filterName, filterValue) {
 //     console.log('click', event.detail)
 //   });
 // }
+
+// S2: Hard work
+function handleDeletePostModal() {
+  const modalElement = document.getElementById('deletePostModal');
+  if (!modalElement) return;
+  if(Boolean(modalElement.dataset.registered)) return;
+
+  document.addEventListener('post-delete', (event) => {
+    try {
+      const post = event.detail;
+      const deleteMessage = document.querySelector('.delete-message');
+      deleteMessage.innerHTML = `
+        Are you sure to remove post "<h6 style="color: red; margin: 0;">${post.title}</h6>" ?
+      `;
+
+      const modal = new window.bootstrap.Modal(modalElement);
+      
+      const btnDelete = modalElement.querySelector('button[data-id="btnDelete"]'); 
+      btnDelete.addEventListener('click', async () => {
+        await postApi.remove(post.id);
+        await handleFilterChange();
+        toast.success('Remove post successfully');
+
+        await modal.hide();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      });
+
+      const cancleButton = document.querySelector('button[data-id="btnClose"]');
+      cancleButton.addEventListener('click', () => {
+        modal.hide();
+      });
+
+      if (!btnDelete || !cancleButton) return;
+
+      modal.show();
+    } catch (error) {
+      toast.error(error.message);
+    }
+  });
+}
+
 
 // MAIN
 ;(async () => {
@@ -68,11 +112,7 @@ export async function handleFilterChange(filterName, filterValue) {
 
     // registerPostDeleteEvent();
 
-    handleDeletePostModal({
-      modalId: 'deletePostModal',
-      deleteSelector: 'button[data-id="btnDelete"]',
-      closeSelector: 'button[data-id="btnClose"]',
-    });
+    handleDeletePostModal();
 
     handleFilterChange();
   } catch (error) {
