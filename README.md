@@ -6,7 +6,15 @@ View live demo: [https://crud-with-api.vercel.app/](https://crud-with-api.vercel
 
 - Author: [https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/](https://app.swaggerhub.com/apis/paulnguyen.mn/easy-javascript/)
 
-This simple website has 3 pages:
+#### How to run this source?
+
+1- Download source
+
+2- Run terminal: 
+
+  - Enter `yarn` or `npm install`
+
+## This simple website has 3 pages:
 - Home page: `/`
 - Add/Edit a post page: `/add-edit-post.html`
 - Post detail page: `/post-detail.html`
