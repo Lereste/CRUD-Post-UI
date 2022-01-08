@@ -1,6 +1,6 @@
 # CRUD Post UI | Lereste
 
-View live demo: [https://crud-with-api.vercel.app/](https://crud-with-api.vercel.app/)
+View live demo: [crud-post-ui.vercel.app](crud-post-ui.vercel.app)
 
 - API_URL: `https://js-post-api.herokuapp.com/api`
 
